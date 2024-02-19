@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Js SSDev Kurs objects</title>
+
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Js, strona, kurs, html, css, skrypt">
+    <meta name="author" content="Kacper">
+    <meta name="description" content="Strona z JS">
+
+    <link rel="stylesheet" type="text/css" href="Jscourse.css">
+
+</head>
+    <body style="padding:50px;">
+
+      <h1>Rock paper scissors game</h1>
+
+        <button onclick="
+        
+           PlayGame('rock')
+           
+        ">Rock
+
+        </button>
+
+        <button onclick="
+       
+            PlayGame('paper')
+         
+        ">Paper
+
+        </button>
+
+        <button onclick="
+        
+            PlayGame('scissors')
+
+        ">Scissors
+
+        </button>
+
+        <button onclick="
+
+            score.wins = 0;
+            score.loses = 0;
+            score.ties = 0;
+            
+            localStorage.removeItem('score');
+            alert(`Points have been reset\nYour wins: ${score.wins}\nComputer wins: ${score.loses}\nTies: ${score.ties}`);
+
+        ">Reset points
+        
+        </button>
+
+        <script>
+
+            let ComputersWins = 0;
+            let UserWins = 0;
+
+            let score = JSON.parse(localStorage.getItem('score'));
+
+            if (score === null){
+                score = {
+                    wins: 0,
+                    loses: 0,
+                    ties: 0
+                };
+            } 
+
+               
+            
+            
+            function Random(){
+
+                let move;
+                const RandomNumber = (Math.random());
+            
+                if (RandomNumber >= 0 && RandomNumber < 1/3){
+
+                    move = 'rock';
+
+                } else if (RandomNumber >= 1/3 && RandomNumber < 2/3){
+
+                    move = 'paper';
+
+                } else {
+
+                    move = 'scissors';
+                }
+
+                return move;
+
+            }
+
+            function PlayGame(PlayerMove){
+
+                move = Random();
+
+                if (PlayerMove === 'rock'){
+
+                    if(move === 'rock'){
+
+                        alert(`Computer choose ${move}. A tie.`);
+                        score.ties++;
+
+                    } else if (move === 'paper'){
+
+                        alert(`Computer choose ${move}. You lose.`);
+                        score.loses++;
+
+                    } else {
+
+                        alert(`Computer choose ${move}. You win.`);
+                        score.wins++;
+                    }
+                    } else if (PlayerMove === 'paper'){
+
+                        if(move === 'rock'){
+
+                            alert(`Computer choose ${move}. You win.`);
+                            score.wins++;
+
+                        } else if (move === 'paper'){
+
+                            alert(`Computer choose ${move}. A tie`);
+                            score.ties++;
+
+                        } else{ 
+                            
+                            alert(`Computer choose ${move}. You lose.`);
+                            score.loses++;
+                        }
+
+                    } else if (PlayerMove === 'scissors'){
+
+                        if (move === 'scissors'){
+
+                            alert(`Computer choose ${move}. A tie.`)
+                            score.ties++;
+
+                        } else if (move === 'rock'){
+
+                            alert(`Computer choose ${move}. You lose.`);
+                            score.loses++;
+                        } else {
+
+                            alert(`Computer choose ${move}. You win.`);
+                            score.wins++;
+                        
+                        }
+
+                        
+
+                }
+                
+                localStorage.setItem('score', JSON.stringify(score));
+
+                console.log(move);
+                alert(`Your wins: ${score.wins}\nComputer wins: ${score.loses}\nTies: ${score.ties}`);
+                // przy zapisie w `` można zrobic enter zamiast \n
+                
+
+            }   
+
+            console.log(JSON.parse(localStorage.getItem('score'))); // localStorage czy get item czy set item jak widzisz wszystko camelCase czy pierwszaLiteraMałaDalszeDuże
+
+            //pamiętaj localStorage pracuje tylko na stringach!!!
+
+            //dokończ w kursie z tym local storage zrób jakiś własny prosty przkład i leć do następnej lekcji
+            console.log(score);
+
+        </script>
+    
+
+    </body>
+</html>
